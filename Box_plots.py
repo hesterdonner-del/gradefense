@@ -4,36 +4,30 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-plt.rcParams['font.sans-serif'] = ['SimHei']
-df = pd.read_excel('demo.xlsx', sheet_name='Sheet2')
-print(df)
+# 解决不显示的问题：中文设置为 宋体 格式，英文设置为 Times New Roman 格式
+plt.rcParams['font.family'] = ['Times New Roman','SimSun']
+df = pd.read_excel('Experimental_Data.xlsx',
+                   sheet_name='抗折强度',
+                   usecols=['#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8'])
+# print(df)
+data = df.iloc[0:5]     # 获取第 1 到 6 行（索引0-4）
+# print(data)
 
-x1 = df['#1']
-x2 = df['#2']
-x3 = df['#3']
-x4 = df['#4']
-# x5 = df['#5']
-x6 = df['#6']
-# x7 = df['#7']
-x8 = df['#8']
-# x9 = df['#9']
-data = [x1.values, x2.values, x3.values, x4.values, x6.values, x8.values]
-
-plt.boxplot(data,
-            patch_artist=True,
-            widths=0.5,
-            showmeans=True,
-            meanprops={'marker':'+',
+plt.boxplot(x=data,             # 绘制的数据
+            patch_artist=True,  # 垂直排列箱线图
+            widths=0.5,         # 箱型宽度
+            showmeans=True,     # 显示均值点
+            meanprops={'marker':'+',    # 设置均值点属性
                     'markerfacecolor':'k',
                     'markeredgecolor':'k',
                     'markersize':5
                        }
         )
 
-plt.ylim([50,150])
-plt.xticks([1,2,3,4,5,6],['#1','#2','#3','#4', '#6', '#8'])
-plt.grid(axis='y',ls='--',alpha=0.5)
+plt.ylim([50,150])              # 设置 y 轴范围
+plt.xticks([1,2,3,4,5,6,7,8],   # 替换刻度，前者为刻度位置，后者为对应的标签
+           ['#1','#2','#3','#4','#5','#6','#7','#8'])
 plt.ylabel('抗折强度(MPa)', fontsize=11)
-plt.tight_layout()
-plt.savefig('boxplot1.svg')
+plt.savefig('boxplot.svg')     # 保存 svg 格式的图片
 plt.show()
+
