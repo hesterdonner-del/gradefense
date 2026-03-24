@@ -148,12 +148,12 @@ if __name__ == '__main__':
 
     # 读取Excel
     df = read_excel(file_path=file_name, sheet_name=sheet_name)
-    print(df.head())
+    # print(df.head())
 
-    # doc = Document()
-    # # 设置文档默认字体（可选）
-    # doc.styles['Normal'].font.name = '宋体'
-    # doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
-    #
-    # dataframe_to_three_line_table(df, doc)
-    # doc.save("text.docx")
+    doc = Document()
+    # 设置文档默认字体（可选）
+    doc.styles['Normal'].font.name = '宋体'
+    doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
+    
+    dataframe_to_three_line_table(df, doc)
+    doc.save("text.docx")
