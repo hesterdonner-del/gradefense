@@ -16,7 +16,7 @@
 
 
 """
-
+import csv
 import os
 import re
 
@@ -62,21 +62,34 @@ def menu():
 
 
 def insert():
+    """
+    数据数据并保存
+    """
     data_list=[]
+    blade_spacing = input("刀口距离(L)：")       # 提前设置好刀口距离
     while True:
         process_no = input("工艺序号：")
         if not process_no:
             break
 
         try:
-            length = float(input("试条长："))
-            width = float(input("试条宽："))
-            thickness = float(input("试条厚度："))
+            length_1 = float(input("烧结前试条长 l1(mm)："))
+            length_2 = float(input("烧结后试条长 l2(mm)："))
+            width = float(input("试条宽 d(mm)："))
+            thickness = float(input("试条厚 h(mm)："))
+            load_strength = float(input("荷载强度 P(N)："))
+
         except Exception as e:
             print(f"输入失败：{e}")
             continue
         # 数据保存到字典中
-        data_no = {'process_no': process_no, 'length': length, 'width': width, 'thickness': thickness}
+        data_no = {'process_no': process_no,
+                   'blade_spacing': blade_spacing,
+                   'length_1': length_1,
+                   'length_2': length_2,
+                   'width': width,
+                   'thickness': thickness,
+                   'load_strength': load_strength}
         data_list.append(data_no)       # 数据添加到列表中
 
         continue_insert = input("继续？Y/n")
@@ -86,6 +99,22 @@ def insert():
             break
 
     # 存储数据
+    # file_path = input("输入要保存数据的位置(保存此文件夹可用:'./data.csv')：")
+    save_csv(data_list)
+    print("保存完成")
+
+def save_csv(data_list, file_path="./data.csv"):
+    try:
+        csv_file = open(file_path, mode='a', newline='', encoding='utf-8')  # 追加
+    except Exception as e:
+        print(e)
+        csv_file = open(file_path, mode='w', newline='', encoding='utf-8')  # 写入
+    headers = list(data_list[0].keys())
+    writer = csv.DictWriter(csv_file, fieldnames=headers)
+    writer.writeheader()
+    for data in data_list:
+        writer.writerow(data)
+    print("写入完成".format(file_path))
 
 def search():
     pass
