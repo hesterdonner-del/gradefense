@@ -1,9 +1,6 @@
 # Name: Wade:@
 # Data: 2026/2/28 8:56
 
-"""
-    Debug version
-"""
 
 def process_intensity_observations_debug(observations):
     if not observations:

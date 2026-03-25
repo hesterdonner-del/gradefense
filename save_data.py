@@ -103,7 +103,7 @@ def insert():
     save_csv(data_list)
     print("保存完成")
 
-def save_csv(data_list, file_path="./data.csv"):
+def save_csv(data_list, file_path=".\\appendix\\data.csv"):
     try:
         csv_file = open(file_path, mode='a', newline='', encoding='utf-8')  # 追加
     except Exception as e:

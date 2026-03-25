@@ -156,4 +156,4 @@ if __name__ == '__main__':
     doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
     
     dataframe_to_three_line_table(df, doc)
-    doc.save("text.docx")
+    doc.save(".\\appendix\\text.docx")
