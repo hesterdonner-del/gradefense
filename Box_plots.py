@@ -10,7 +10,7 @@ df = pd.read_excel('.\\appendix\\Experimental_Data.xlsx',
                    sheet_name='抗折强度',
                    usecols=['#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8'])
 # print(df)
-data = df.iloc[0:5]     # 获取第 1 到 6 行（索引0-4）
+data = df.iloc[0:5]     # 获取第 1 到 6 行（索引0-5）
 # print(data)
 
 plt.boxplot(x=data,             # 绘制的数据
