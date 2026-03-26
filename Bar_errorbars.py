@@ -65,26 +65,27 @@ def plot_bar_error(mean_values, std_values, samples):
     plt.figure(figsize=(10, 6))
     bars = plt.bar(
                 samples, mean_values, yerr=std_values, capsize=5,
-                color='skyblue', edgecolor='black', alpha=0.7,
+                color='#1f77b4', edgecolor='black', alpha=0.8,
                 error_kw={'linewidth': 2, 'ecolor': 'red'}
-                   )
+            )
 
     # 添加数据标签（平均值）
     for bar, mean_val in zip(bars, mean_values):
         plt.text(
             bar.get_x() + bar.get_width()/2,
             bar.get_height() + 0.5,
-            f'{mean_val:.2f}', ha='center', va='bottom', fontsize=10
+            f'{mean_val:.2f}', ha='center', va='bottom', fontsize=15
         )
 
     # 设置标题和轴标签
     plt.title('抗折强度平均值及标准差', fontsize=14)
-    plt.xlabel('样本编号', fontsize=12)
+    # plt.xlabel('样本编号', fontsize=14)
     plt.ylabel('抗折强度 (MPa)', fontsize=12)
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
 
+    plt.savefig(".\\appendix\\Bar_error.svg", transparent=False)
     plt.show()
+
 
 
 def main():
