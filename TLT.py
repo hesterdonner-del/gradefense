@@ -15,7 +15,7 @@ import openpyxl
 
 def main():
     # 选择文件夹
-    file_name, folder_name = open_file_or_folder()
+    file_name, folder_name = open_file_folder()
 
     # print(file_name)
 
@@ -67,7 +67,7 @@ def remove_all_borders(table):
                 right={"val": "nil"}
             )
 
-def apply_three_line_table(table):
+def apply_tlt(table):
     """
     设置单元格边框
     cell: 单元格对象
@@ -86,7 +86,7 @@ def apply_three_line_table(table):
         set_cell_border(cell, bottom={"sz": 12, "val": "single", "color": "000000"})
 
 
-def open_file_or_folder():
+def open_file_folder():
     root = tk.Tk()
     root.withdraw()
 
@@ -152,7 +152,7 @@ def dataframe_to_tlt(df, doc, caption=None, footnote=None):
                 cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     remove_all_borders(table)
-    apply_three_line_table(table)
+    apply_tlt(table)
 
     return table
 
