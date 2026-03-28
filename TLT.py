@@ -16,7 +16,6 @@ import openpyxl
 def main():
     # 选择文件夹
     file_name, folder_name = open_file_folder()
-
     # print(file_name)
 
     print_excel(file_name)
@@ -114,7 +113,7 @@ def open_file_folder():
     return FileName , FolderName
 
 def read_excel(file_path, sheet_name):
-    # 读取Excel文件，返回DataFrame
+    # 读取Excel文件，返回 DataFrame
     try:
         df = pd.read_excel(file_path, sheet_name=sheet_name, dtype=str)  # 先按字符串读，避免日期等格式问题
         # 如果希望保留原始数据类型，可去掉dtype参数，但日期列在后续写入Word时会变成datetime对象，可能需要转换

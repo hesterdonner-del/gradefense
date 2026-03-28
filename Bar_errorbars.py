@@ -87,7 +87,6 @@ def plot_bar_error(mean_values, std_values, samples):
     plt.show()
 
 
-
 def main():
     FILE_PATH = Path(".\\appendix\\Experimental_Data.xlsx")
     SHEET_NAME = "抗折强度"

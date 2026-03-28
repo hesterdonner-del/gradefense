@@ -115,7 +115,7 @@ def save_csv(data_list, file_path=File_PATH):
         csv_file = open(file_path, mode='w', newline='', encoding='utf-8')  # 写入
 
     headers = list(data_list[0].keys())
-    writer = csv.DictWriter(csv_file, fieldnames=headers)
+    writer = csv.DictWriter(csv_file, fieldnames=headers)   # 指定表头结构
     writer.writeheader()
     for data in data_list:
         writer.writerow(data)
