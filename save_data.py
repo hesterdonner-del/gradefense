@@ -25,7 +25,7 @@ def main():
     while True:
         menu()
         choice = int(input("请选择："))
-        if choice in [0, 1, 2, 3, 4, 5, 6]:
+        if choice in [0, 1, 2, 3, 4, 5, 6, 7]:
             if choice == 0:
                 ans = input("确定推出系统？Y/n")
                 if ans == "Y" or ans == "y":
@@ -41,6 +41,8 @@ def main():
             elif choice == 5:
                 cal_strength()
             elif choice == 6:
+                cal_shrinkage()
+            elif choice == 7:
                 show_data()
         else:
             print("请输入合适的数字！")
@@ -55,8 +57,9 @@ def menu():
         "\n\t2.查询数据"
         "\n\t3.删除数据"
         "\n\t4.修改数据"
-        "\n\t5.抗折强度计算"
-        "\n\t6.显示所有数据"
+        "\n\t5.计算抗折强度"
+        "\n\t6.计算线收缩率"
+        "\n\t7.显示所有数据"
         "\n\t0.退出"
         "\n" + "-" * 52)
 
@@ -126,6 +129,9 @@ def modify():
     pass
 
 def cal_strength():
+    pass
+
+def cal_shrinkage():
     pass
 
 def show_data():
