@@ -28,19 +28,13 @@
 	柱状图（含误差线）
 # 算法
 
-抗折强度
-	1. Input observation list
-	2. Calculate average value
-	3. Find maximum and minimum values
-	4. Compute relative error of both
-	5. Remove value with largest relative error if threshold exceeded
-	6. Repeat until condition satisfied
-	7. Output final average
 
 # 程序结构
 
+数据处理
 
-抗折强度
+
+箱线图
 ```
 main()
  ├── read_data()
@@ -50,3 +44,6 @@ main()
  └── display_results()
 ```
 
+柱状图
+
+三线表

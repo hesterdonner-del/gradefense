@@ -20,6 +20,9 @@ import csv
 import os
 import re
 
+import pandas as pd
+
+File_PATH = ".\\appendix\\data.csv"
 
 def main():
     while True:
@@ -27,9 +30,7 @@ def main():
         choice = int(input("请选择："))
         if choice in [0, 1, 2, 3, 4, 5, 6, 7]:
             if choice == 0:
-                ans = input("确定推出系统？Y/n")
-                if ans == "Y" or ans == "y":
-                    break
+                break
             elif choice == 1:
                 insert()
             elif choice == 2:
@@ -69,15 +70,15 @@ def insert():
     数据数据并保存
     """
     data_list=[]
-    blade_spacing = input("刀口距离(L)：")       # 提前设置好刀口距离
+    blade_spacing = float(input("刀口距离(L)："))       # 提前设置好刀口距离
     while True:
-        process_no = input("工艺序号：")
-        if not process_no:
+        crafts = input("工艺序号：")
+        if not crafts:
             break
 
         try:
-            length_1 = float(input("烧结前试条长 l1(mm)："))
-            length_2 = float(input("烧结后试条长 l2(mm)："))
+            len_1 = float(input("烧结前试条长 l1(mm)："))
+            len_2 = float(input("烧结后试条长 l2(mm)："))
             width = float(input("试条宽 d(mm)："))
             thickness = float(input("试条厚 h(mm)："))
             load_strength = float(input("荷载强度 P(N)："))
@@ -86,17 +87,17 @@ def insert():
             print(f"输入失败：{e}")
             continue
         # 数据保存到字典中
-        data_no = {'process_no': process_no,
-                   'blade_spacing': blade_spacing,
-                   'length_1': length_1,
-                   'length_2': length_2,
-                   'width': width,
-                   'thickness': thickness,
-                   'load_strength': load_strength}
+        data_no = {'crafts': crafts,
+                   'L(mm)': blade_spacing,
+                   'len_1(mm)': len_1,
+                   'len_2(mm)': len_2,
+                   'd(mm)': width,
+                   'h(mm)': thickness,
+                   'P(N)': load_strength}
         data_list.append(data_no)       # 数据添加到列表中
 
-        continue_insert = input("继续？Y/n")
-        if continue_insert == "Y" or continue_insert == "y":
+        continue_operate = input("继续？Y/n")
+        if continue_operate == "Y" or continue_operate == "y":
             continue
         else:
             break
@@ -106,24 +107,45 @@ def insert():
     save_csv(data_list)
     print("保存完成")
 
-def save_csv(data_list, file_path=".\\appendix\\data.csv"):
+def save_csv(data_list, file_path=File_PATH):
     try:
         csv_file = open(file_path, mode='a', newline='', encoding='utf-8')  # 追加
     except Exception as e:
         print(e)
         csv_file = open(file_path, mode='w', newline='', encoding='utf-8')  # 写入
+
     headers = list(data_list[0].keys())
     writer = csv.DictWriter(csv_file, fieldnames=headers)
     writer.writeheader()
     for data in data_list:
         writer.writerow(data)
-    print("写入完成".format(file_path))
+    print(f"--- 写入完成: {file_path} ---")
 
 def search():
     pass
 
-def delete():
-    pass
+def delete(file_path=File_PATH):
+
+    # 读取 excel 文件
+    df = pd.read_excel(file_path)
+
+    while True:
+        crafts = input("输入要删除的工艺号：")
+
+        try:
+            df = df[df['crafts'] != crafts]
+        except Exception as e:
+            print(e)
+        # 保存数据
+        df.to_csv(file_path, index=False)
+
+        continue_operate = input("继续？Y/n")
+        if continue_operate == "Y" or continue_operate == "y":
+            continue
+        else:
+            break
+
+    return df
 
 def modify():
     pass
@@ -134,8 +156,11 @@ def cal_strength():
 def cal_shrinkage():
     pass
 
-def show_data():
-    pass
+def show_data(file_path=File_PATH):
+    df = pd.read_csv(file_path)
+    print(df)
+
+    return None
 
 if __name__ == '__main__':
     main()
