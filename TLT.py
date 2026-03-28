@@ -13,6 +13,28 @@ from tkinter import filedialog
 import openpyxl
 
 
+def main():
+    # 选择文件夹
+    file_name, folder_name = open_file_or_folder()
+
+    # print(file_name)
+
+    print_excel(file_name)
+    sheet_name = input("请输入此文件需要处理的页：")
+
+    # 读取Excel
+    df = read_excel(file_path=file_name, sheet_name=sheet_name)
+    # print(df.head())
+
+    doc = Document()
+    # 设置文档默认字体（可选）
+    doc.styles['Normal'].font.name = '宋体'
+    doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
+
+    dataframe_to_tlt(df, doc)
+    doc.save(".\\appendix\\text.docx")
+
+
 def set_cell_border(cell, **kwargs):
     tc = cell._tc
     tcPr = tc.get_or_add_tcPr()
@@ -106,7 +128,7 @@ def print_excel(file_path):
     print(all_sheets.sheet_names)
     return None
 
-def dataframe_to_three_line_table(df, doc, caption=None, footnote=None):
+def dataframe_to_tlt(df, doc, caption=None, footnote=None):
     # 将 DataFrame 数据转换为 Word 表格
     rows, cols = df.shape
 
@@ -136,24 +158,4 @@ def dataframe_to_three_line_table(df, doc, caption=None, footnote=None):
 
 
 if __name__ == '__main__':
-
-    # 选择文件夹
-    file_name, folder_name = open_file_or_folder()
-
-    print(file_name)
-
-    print_excel(file_name)
-
-    sheet_name = input("请输入此文件需要处理的页：")
-
-    # 读取Excel
-    df = read_excel(file_path=file_name, sheet_name=sheet_name)
-    # print(df.head())
-
-    doc = Document()
-    # 设置文档默认字体（可选）
-    doc.styles['Normal'].font.name = '宋体'
-    doc.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
-    
-    dataframe_to_three_line_table(df, doc)
-    doc.save(".\\appendix\\text.docx")
+   main()
